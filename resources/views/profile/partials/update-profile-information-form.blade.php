@@ -21,7 +21,7 @@
         <div class="flex items-center gap-6 mt-4">
             <!-- Image Preview -->
             <div class="flex-shrink-0">
-                <img id="preview-image" src="{{ $user->foto ?? asset('img/id_card_foto.png') }}"
+                <img id="preview-image" src="{{ $user->foto ? asset($user->foto) : asset('img/id_card_foto.png') }}"
                     class="w-32 h-48 object-cover border rounded-md" alt="Photo Preview">
             </div>
 

@@ -4,26 +4,26 @@
     style="background-image: url('{{ asset('img/id_card_bg.png') }}'); background-size: cover; background-position: center;">
     <div class="flex w-full h-full">
         <!-- Left Section (Photo) -->
-        <div class="flex flex-col items-center justify-center w-[30%]">
-            <div class="w-[80px] h-[120px] overflow-hidden rounded-md">
+        <div class="flex flex-col items-center justify-center" style="width: 96px;">
+            <div style="width: 80px; height: 120px; overflow: hidden; border-radius: 8px;">
                 <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}" alt="User Photo" id="photo"
-                    class="w-full h-full object-cover">
+                    style="width: 80px; height: 120px; object-fit: cover;">
             </div>
         </div>
 
         <!-- Right Section (Details and Logo) -->
-        <div class="flex flex-col w-[70%] pl-2">
+        <div class="flex flex-col" style="width: 224px; padding-left: 8px;">
             <!-- Logo at the Top Right -->
-            <div class="flex justify-end pr-1 mb-8">
-                <img src="{{ asset('logo.png') }}" alt="Logo" class="h-[55px] w-[55px]">
+            <div class="flex justify-end" style="padding-right: 4px; margin-bottom: 32px;">
+                <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 55px; height: 55px;">
             </div>
             <div>
                 <!-- Card Number -->
-                <div class="text-base font-bold tracking-wide">
+                <div style="font-size: 15px; font-weight: bold; letter-spacing: 0.05em;">
                     <p>{{ $formattedId }}</p>
                 </div>
                 <!-- Name -->
-                <div class="text-sm font-semibold">
+                <div style="font-size: 13px; font-weight: 600;">
                     <p>{{ $user->name }}</p>
                 </div>
             </div>
@@ -33,7 +33,8 @@
 
 <!-- Download Button -->
 <button id="downloadButton" onclick="downloadIdCard()"
-    class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+    style="margin-top: 16px; padding: 8px 16px; background-color: #2D3748; border: none; border-radius: 4px; font-size: 10px; font-weight: 600; color: #FFF; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background-color 0.15s ease-in-out;"
+    onmouseover="this.style.backgroundColor='#4A5568'" onmouseout="this.style.backgroundColor='#2D3748'">
     Download ID Card
 </button>
 
