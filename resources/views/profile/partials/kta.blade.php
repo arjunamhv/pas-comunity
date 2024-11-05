@@ -19,7 +19,7 @@
             </div>
             <div>
                 <!-- Card Number -->
-                <div style="font-size: 15px; font-weight: bold; letter-spacing: 0.05em;">
+                <div style="font-size: 14px; font-weight: bold; letter-spacing: 0.05em; font-family: 'OCR-A', monospace;">
                     <p>{{ $formattedId }}</p>
                 </div>
                 <!-- Name -->
@@ -54,3 +54,12 @@
         });
     }
 </script>
+
+<style>
+    @font-face {
+        font-family: 'OCR-A';
+        src: url('/font/OCR-a___.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+</style>

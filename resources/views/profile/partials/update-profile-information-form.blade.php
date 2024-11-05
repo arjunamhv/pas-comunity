@@ -21,7 +21,8 @@
         <div class="flex items-center gap-6 mt-4">
             <!-- Image Preview -->
             <div class="flex-shrink-0">
-                <img id="preview-image" src="{{ $user->foto ? asset('storage'.$user->foto) : asset('img/id_card_foto.png') }}"
+                <img id="preview-image"
+                    src="{{ $user->foto ? asset('storage' . $user->foto) : asset('img/id_card_foto.png') }}"
                     class="w-32 h-48 object-cover border rounded-md" alt="Photo Preview">
             </div>
 
@@ -149,7 +150,7 @@
     </form>
 </section>
 <!-- Modal Structure -->
-<div id="cropperModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
+<div id="cropperModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 items-center justify-center hidden">
     <div class="bg-white p-4 rounded-lg w-full max-w-md">
         <h2 class="text-lg font-medium text-gray-900 mb-4">Crop your photo</h2>
         <div class="flex justify-center">
@@ -178,7 +179,6 @@
     const cancelCropButton = document.getElementById('cancel-crop');
     const confirmCropButton = document.getElementById('confirm-crop');
 
-    // Show modal and initialize cropper when an image is selected
     fileInput.addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -186,33 +186,32 @@
             reader.onload = function(e) {
                 modalImage.src = e.target.result;
                 modalImage.onload = () => {
-                    if (cropper) cropper.destroy(); // Destroy previous cropper instance if exists
+                    if (cropper) cropper.destroy();
                     cropper = new Cropper(modalImage, {
                         aspectRatio: 2 / 3,
                         viewMode: 1
                     });
                 };
-                cropperModal.classList.remove('hidden'); // Show modal
+                cropperModal.classList.remove('hidden');
+                cropperModal.classList.add('flex');
             };
             reader.readAsDataURL(file);
         }
     });
 
-    // Cancel crop - close modal without saving
     cancelCropButton.addEventListener('click', function() {
         cropperModal.classList.add('hidden');
-        fileInput.value = ''; // Clear file input
+        cropperModal.classList.remove('flex');
+        fileInput.value = '';
         if (cropper) cropper.destroy();
     });
 
-    // Confirm crop - crop image, close modal, and update preview
     confirmCropButton.addEventListener('click', function() {
         if (cropper) {
             cropper.getCroppedCanvas({
                 width: 240,
                 height: 360
             }).toBlob(blob => {
-                // Replace the input file with cropped file
                 const croppedFile = new File([blob], 'cropped_image.jpg', {
                     type: 'image/jpeg'
                 });
@@ -220,12 +219,11 @@
                 dataTransfer.items.add(croppedFile);
                 fileInput.files = dataTransfer.files;
 
-                // Set cropped image as preview
                 const croppedUrl = URL.createObjectURL(croppedFile);
                 previewImage.src = croppedUrl;
 
-                // Close modal and destroy cropper instance
                 cropperModal.classList.add('hidden');
+                cropperModal.classList.remove('flex');
                 cropper.destroy();
             });
         }
