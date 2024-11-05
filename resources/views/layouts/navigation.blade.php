@@ -16,6 +16,17 @@
                         <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                             {{ __('Home') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('news')" :active="request()->routeIs('news')">
+                            {{ __('News') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('events')" :active="request()->routeIs('events')">
+                            {{ __('Events') }}
+                        </x-nav-link>
+                        @can('admin-only')
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+                        @endcan
                     </div>
                 @endauth
             </div>
@@ -91,6 +102,17 @@
                 <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Home') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('news')" :active="request()->routeIs('news')">
+                    {{ __('News') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('events')" :active="request()->routeIs('events')">
+                    {{ __('Events') }}
+                </x-responsive-nav-link>
+                @can('admin-only')
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                @endcan
             @else
                 <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
                     {{ __('Log in') }}

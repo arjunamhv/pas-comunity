@@ -101,5 +101,9 @@ class User extends Authenticatable
 
         return "{$villageId}{$birthDate}{$uniqueCode}";
     }
-}
 
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+}
