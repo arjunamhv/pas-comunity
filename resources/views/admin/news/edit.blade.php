@@ -1,56 +1,50 @@
 <x-admin-layout>
-    <h2 class="text-2xl font-semibold text-gray-700">Edit News</h2>
+    <div class="p-6">
+        <h2 class="text-2xl font-semibold text-gray-700">Edit News</h2>
 
-    <form action="{{ route('news.update', $news->id) }}" method="POST" enctype="multipart/form-data" class="mt-6">
-        @csrf
-        @method('PATCH')
+        <form action="{{ route('news.update', $news->id) }}" method="POST" enctype="multipart/form-data" class="mt-6">
+            @csrf
+            @method('PATCH')
 
-        <!-- Title -->
-        <div class="mb-4">
-            <label for="title" class="block text-gray-700">Title</label>
-            <input type="text" name="title" id="title"
-                class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required value="{{ old('title', $news->title) }}">
-            @error('title')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+            <!-- Title -->
+            <div class="mb-4">
+                <x-input-label for="title" :value="__('Title')" />
+                <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title', $news->title)"
+                    required />
+                <x-input-error :messages="$errors->get('title')" class="mt-2" />
+            </div>
 
-        <!-- Image -->
-        <div class="mb-4">
-            <label for="image" class="block text-gray-700">Image</label>
+            <!-- Image -->
+            <div class="mb-4">
+                <x-input-label for="image" :value="__('Image')" />
 
-            <!-- Show Current Image -->
-            @if($news->image)
-                <div class="mb-2">
-                    <img src="{{ Storage::url($news->image) }}" alt="Current Image" class="w-32 h-32 object-cover">
-                </div>
-            @endif
+                <!-- Show Current Image -->
+                @if ($news->image)
+                    <div class="mb-2">
+                        <img src="{{ Storage::url($news->image) }}" alt="Current Image" class="w-32 h-32 object-cover">
+                    </div>
+                @endif
 
-            <input type="file" name="image" id="image"
-                class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
-            @error('image')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+                <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" />
+                <x-input-error :messages="$errors->get('image')" class="mt-2" />
+            </div>
 
-        <!-- Content with Trix Editor -->
-        <div class="mb-4">
-            <label for="content" class="block text-gray-700">Content</label>
-            <input id="content" type="hidden" name="content" value="{{ old('content', $news->content) }}">
-            <trix-editor input="content" class="trix-content"></trix-editor>
-            @error('content')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+            <!-- Content with Trix Editor -->
+            <div class="mb-4">
+                <x-input-label for="content" :value="__('Content')" />
+                <input id="content" type="hidden" name="content" value="{{ old('content', $news->content) }}">
+                <trix-editor input="content" class="trix-content"></trix-editor>
+                <x-input-error :messages="$errors->get('content')" class="mt-2" />
+            </div>
 
-        <!-- Submit Button -->
-        <div class="flex justify-end">
-            <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                Update
-            </button>
-        </div>
-    </form>
+            <!-- Submit Button -->
+            <div class="flex justify-end">
+                <x-primary-button>
+                    {{ __('Update') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </div>
 </x-admin-layout>
 
 <script>

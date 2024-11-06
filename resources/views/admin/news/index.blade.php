@@ -12,21 +12,17 @@
 
     <div class="overflow-x-auto">
         <div class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-            <table class="min-w-full table-auto border-collapse border border-gray-300">
-                <thead class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
-                    <tr>
-                        <th class="py-3 px-6 text-left w-1/12">ID</th>
-                        <th class="py-3 px-6 text-left w-6/12">Title</th>
-                        <th class="py-3 px-6 text-left w-6/12">Content</th>
-                        <th class="py-3 px-6 text-left w-2/12">Image</th>
-                        <th class="py-3 px-6 text-left w-3/12">Action</th>
-                    </tr>
-                </thead>
-            </table>
-
-            <!-- Wrapper for the scrollable tbody -->
-            <div class="max-h-80 overflow-y-auto">
-                <table class="min-w-full table-auto border-collapse border-t border-gray-300">
+            <div class="overflow-y-auto max-h-80">
+                <table class="min-w-full table-auto border-collapse border border-gray-300">
+                    <thead class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal sticky top-0 z-10">
+                        <tr>
+                            <th class="py-3 px-6 text-left w-1/12">ID</th>
+                            <th class="py-3 px-6 text-left w-6/12">Title</th>
+                            <th class="py-3 px-6 text-left w-6/12">Content</th>
+                            <th class="py-3 px-6 text-left w-2/12">Image</th>
+                            <th class="py-3 px-6 text-left w-3/12">Action</th>
+                        </tr>
+                    </thead>
                     <tbody class="text-gray-600 text-sm font-light">
                         @foreach ($news as $item)
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
@@ -52,15 +48,15 @@
                                         title="Edit">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <button type="button"
-                                        onclick="confirmDelete({{ $item->id }})"
+                                    <button type="button" onclick="confirmDelete({{ $item->id }})"
                                         class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                                         title="Delete">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
 
                                     <!-- Delete form (hidden) -->
-                                    <form id="delete-form-{{ $item->id }}" action="{{ route('news.destroy', $item->id) }}" method="POST" class="hidden">
+                                    <form id="delete-form-{{ $item->id }}"
+                                        action="{{ route('news.destroy', $item->id) }}" method="POST" class="hidden">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -96,7 +92,7 @@
         });
     }
 </script>
-@if(session('success'))
+@if (session('success'))
     <script>
         Swal.fire({
             icon: 'success',

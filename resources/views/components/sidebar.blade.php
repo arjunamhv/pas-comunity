@@ -1,4 +1,4 @@
-<div class="flex flex-col w-16 bg-gray-800 text-white h-screen transition-all duration-300" id="sidebar">
+<div class="flex flex-col w-16 bg-gray-800 text-white min-h-screen transition-all duration-300" id="sidebar">
     <div class="flex items-center justify-start p-3" id="toggleContainer">
         <button id="toggleSidebar" class="text-white p-3 rounded-full hover:bg-gray-700">
             <i id="toggleIcon" class="fas fa-bars transition-transform duration-300"></i>

@@ -23,7 +23,14 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'event_date' => ['required', 'date'],
+            'start_time' => ['required', 'date_format:H:i'],
+            'location' => ['required', 'string'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }

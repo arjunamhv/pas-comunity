@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/news/load-more', [NewsController::class, 'loadMore'])->name('news.load-more');
     Route::get('/news/{id}', [NewsController::class, 'newsDetail'])->name('news.detail');
     Route::get('/events', [EventController::class, 'events'])->name('events');
+    Route::get('/events/{id}', [EventController::class, 'eventDetail'])->name('events.detail');
 
     Route::middleware(AdminMiddleware::class)->group(function () {
         Route::get('/dashboard', function () {

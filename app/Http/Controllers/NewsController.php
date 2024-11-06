@@ -83,7 +83,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        News::where('id', $news->id)->get();
+        News::find($news->id);
         return view('admin.news.show', compact('news'));
     }
 
