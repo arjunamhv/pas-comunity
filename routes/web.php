@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home');
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
         })->name('dashboard');
         Route::resource('/control/events', EventController::class);
         Route::resource('/control/news', NewsController::class);
+        Route::resource('/control/users', UserController::class);
     });
 });
 
@@ -37,5 +39,9 @@ Route::get('/kota', [AddressController::class, 'getKota'])->name('kota.get');
 Route::get('/kecamatan', [AddressController::class, 'getKecamatan'])->name('kecamatan.get');
 
 Route::get('/kelurahan', [AddressController::class, 'getKelurahan'])->name('kelurahan.get');
+
+Route::get('/kotalahir', [AddressController::class, 'getKotabyid'])->name('get.kota.by.id');
+
+Route::get('kota-lahir/autocomplete', [AddressController::class, 'autocomplete_kota_lahir'])->name('kota.lahir.autocomplete');
 
 require __DIR__.'/auth.php';

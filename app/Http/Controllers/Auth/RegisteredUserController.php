@@ -40,12 +40,12 @@ class RegisteredUserController extends Controller
             'province_id' => ['required', 'exists:provinces,id'],
             'regency_id' => ['required', 'exists:regencies,id'],
             'district_id' => ['required', 'exists:districts,id'],
-            'kelurahan_id' => ['required', 'exists:villages,id'],
+            'village_id' => ['required', 'exists:villages,id'],
         ]);
-        $village = urlencode(Village::find($request->kelurahan_id)?->name);
+        $village = urlencode(Village::find($request->village_id)?->name);
         $response = Http::get("https://kodepos.vercel.app/search/?q=" . $village);
         if ($response->successful()) {
-            $villageName = Village::find($request->kelurahan_id)?->name;
+            $villageName = Village::find($request->village_id)?->name;
             $districtName = District::find($request->district_id)?->name;
             $data = $response->json()['data'] ?? [];
             $filteredData = array_filter($data, function ($item) use ($villageName, $districtName) {
@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
                 'provinsi_id' => $request->province_id,
                 'kota_id' => $request->regency_id,
                 'kecamatan_id' => $request->district_id,
-                'kelurahan_id' => $request->kelurahan_id,
+                'kelurahan_id' => $request->village_id,
                 'kode_pos' => $kodePos,
             ]);
 
@@ -77,17 +77,5 @@ class RegisteredUserController extends Controller
         } else {
             return back()->with('error', 'Gagal mendapatkan kode pos');
         }
-    }
-
-
-    public function autocomplete_kota_lahir(Request $request)
-    {
-        $query = $request->get('query');
-
-        $data = Regency::where('name', 'LIKE', '%' . $query . '%')
-            ->select('id', 'name')
-            ->get();
-
-        return response()->json($data);
     }
 }

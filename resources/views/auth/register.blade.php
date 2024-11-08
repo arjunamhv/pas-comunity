@@ -72,15 +72,15 @@
 
         <!-- Kelurahan -->
         <div class="mt-4">
-            <x-input-label for="kelurahan_id" :value="__('Kelurahan')" />
-            <select id="kelurahan_id" name="kelurahan_id"
+            <x-input-label for="village_id" :value="__('Kelurahan')" />
+            <select id="village_id" name="village_id"
                 class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"
                 required>
                 <option value="" disabled>Select village...</option>
-                <option value="{{ old('kelurahan_id') }}" selected>
-                    {{ old('kelurahan_id') ? 'Previously selected village' : '' }}</option>
+                <option value="{{ old('village_id') }}" selected>
+                    {{ old('village_id') ? 'Previously selected village' : '' }}</option>
             </select>
-            <x-input-error :messages="$errors->get('kelurahan_id')" class="mt-2" />
+            <x-input-error :messages="$errors->get('village_id')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
@@ -126,9 +126,6 @@
         $(document).ready(function() {
             $('#kota_tempat_lahir_id').select2({
                 width: '100%'
-            });
-
-            $('#kota_tempat_lahir_id').select2({
                 placeholder: 'Search for a city...',
                 minimumInputLength: 1,
                 ajax: {
@@ -164,7 +161,7 @@
                         '<option value="" disabled selected>Select city...</option>');
                     $('#district_id').empty().append(
                         '<option value="" disabled selected>Select district...</option>');
-                    $('#kelurahan_id').empty().append(
+                    $('#village_id').empty().append(
                         '<option value="" disabled selected>Select village...</option>');
                     $.each(data, function(index, item) {
                         $('#province_id').append('<option value="' + item.id + '">' + item
@@ -180,7 +177,7 @@
                     '<option value="" disabled selected>Select city...</option>');
                 $('#district_id').empty().append(
                     '<option value="" disabled selected>Select district...</option>');
-                $('#kelurahan_id').empty().append(
+                $('#village_id').empty().append(
                     '<option value="" disabled selected>Select village...</option>');
 
                 $.ajax({
@@ -203,7 +200,7 @@
                 var kotaId = $(this).val();
                 $('#district_id').empty().append(
                     '<option value="" disabled selected>Select district...</option>');
-                $('#kelurahan_id').empty().append(
+                $('#village_id').empty().append(
                     '<option value="" disabled selected>Select village...</option>');
 
                 $.ajax({
@@ -224,7 +221,7 @@
 
             $('#district_id').on('change', function() {
                 var kecamatanId = $(this).val();
-                $('#kelurahan_id').empty().append(
+                $('#village_id').empty().append(
                     '<option value="" disabled selected>Select village...</option>');
 
                 $.ajax({
@@ -236,7 +233,7 @@
                     dataType: 'json',
                     success: function(data) {
                         $.each(data, function(index, item) {
-                            $('#kelurahan_id').append('<option value="' + item.id +
+                            $('#village_id').append('<option value="' + item.id +
                                 '">' + item.name + '</option>');
                         });
                     }

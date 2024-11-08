@@ -21,13 +21,13 @@
             <span class="text-gray-400 text-sm uppercase ml-4 collapseIcon hide-item">User Settings</span>
         </li>
         <li>
-            <a href="#" class="flex items-center p-3 mx-3 rounded-full hover:bg-gray-700">
+            <a href="{{ url('/control/users') }}" class="flex items-center p-3 mx-3 rounded-full hover:bg-gray-700">
                 <i class="fa-solid fa-user"></i>
                 <span class="ml-2 text-sm md:inline collapseIcon hide-item">User Index</span>
             </a>
         </li>
         <li>
-            <a href="#" class="flex items-center p-3 mx-3 rounded-full hover:bg-gray-700">
+            <a href="{{ url('/control/users/create') }}" class="flex items-center p-3 mx-3 rounded-full hover:bg-gray-700">
                 <i class="fa-solid fa-user-plus"></i>
                 <span class="ml-2 text-sm md:inline collapseIcon hide-item">Add User</span>
             </a>

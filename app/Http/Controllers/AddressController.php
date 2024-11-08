@@ -41,4 +41,24 @@ class AddressController extends Controller
         $kelurahan = Village::where('district_id', $request->district_id)->get(['id', 'name']);
         return response()->json($kelurahan);
     }
+
+    public function getKotabyid(Request $request)
+    {
+        $city = Regency::find($request->id);
+        return response()->json([
+            'id' => $city->id,
+            'name' => $city->name,
+        ]);
+    }
+
+    public function autocomplete_kota_lahir(Request $request)
+    {
+        $query = $request->get('query');
+
+        $data = Regency::where('name', 'LIKE', '%' . $query . '%')
+            ->select('id', 'name')
+            ->get();
+
+        return response()->json($data);
+    }
 }
