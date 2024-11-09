@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Regency;
 use App\Models\Village;
 use App\Models\District;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\Regency;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\UserRelationship;
+use Illuminate\Support\Facades\Http;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -161,6 +162,15 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        $oldValues = [
+            'tanggal_lahir' => $user->tanggal_lahir,
+            'provinsi_id' => $user->provinsi_id,
+            'kota_id' => $user->kota_id,
+            'kecamatan_id' => $user->kecamatan_id,
+            'kelurahan_id' => $user->kelurahan_id,
+        ];
+        $oldId = $user->id;
+
         // Handle foto upload and background removal
         if ($request->hasFile('foto')) {
             if ($user->foto) {
@@ -231,10 +241,57 @@ class UserController extends Controller
         $user->detail_alamat = $request->detail_alamat;
         $user->is_admin = $request->is_admin;
 
+        $changed = false;
+        $changedAttributes = [];
+
+        foreach ($oldValues as $key => $oldValue) {
+            // Ambil nilai baru dari request
+            $newValue = $request->{$key};
+
+            // Jika nilai lama berbeda dengan nilai baru, tandai perubahan
+            if ($oldValue !== $newValue) {
+                $changed = true;
+                $changedAttributes[$key] = ['old' => $oldValue, 'new' => $newValue];
+            }
+        }
+
+        if ($changed) {
+            // Call the function to generate a custom ID
+            $user->id = $this->generateCustomId($user);
+            $this->updateRelatedIds($oldId, $user->id);
+        }
+
         // Save user data to the database
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    }
+
+    /**
+     * Generate a custom ID for the user.
+     * @param $user
+     * @return string
+     */
+    private function generateCustomId($user)
+    {
+        $villageId = $user->kelurahan_id;
+        $birthDate = date('dmy', strtotime($user->tanggal_lahir));
+
+        $userCount = User::where('kelurahan_id', $villageId)->count();
+        $uniqueCode = str_pad($userCount + 1, 3, '0', STR_PAD_LEFT);
+
+        return "{$villageId}{$birthDate}{$uniqueCode}";
+    }
+    /**
+     * Update related IDs in other tables.
+     * @param $oldId
+     * @param $newId
+     * @return void
+     */
+    private function updateRelatedIds($oldId, $newId)
+    {
+        UserRelationship::where('user_a', $oldId)->update(['user_id' => $newId]);
+        UserRelationship::where('user_b', $oldId)->update(['user_id' => $newId]);
     }
 
     /**
