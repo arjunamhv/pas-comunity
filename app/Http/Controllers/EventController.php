@@ -16,14 +16,13 @@ class EventController extends Controller
     {
         // Define the date range: today and four months from today
         $startDate = Carbon::now()->startOfDay();
-        $endDate = Carbon::now()->addMonths(4)->endOfMonth(); // Up to the end of the fourth month
+        $endDate = Carbon::now()->addMonths(3)->endOfMonth(); // Up to the end of the fourth month
 
         // Retrieve events within the date range
         $events = Event::whereBetween('event_date', [$startDate, $endDate])
             ->orderBy('event_date', 'asc')
             ->get()
             ->groupBy(function ($event) {
-                // Group by the month name and year for easy display
                 return Carbon::parse($event->event_date)->format('F Y');
             });
 

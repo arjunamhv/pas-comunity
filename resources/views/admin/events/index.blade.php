@@ -12,7 +12,7 @@
 
     <div class="overflow-x-auto">
         <div class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-            <div class="overflow-y-auto max-h-80">
+            <div class="overflow-y-auto max-h-96">
                 <table class="min-w-full table-auto border-collapse border border-gray-300">
                     <thead class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal sticky top-0 z-10">
                         <tr>
