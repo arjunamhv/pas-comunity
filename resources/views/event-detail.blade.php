@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Event Detail
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-guest-layout>
 
 <!-- Leaflet JS and CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />

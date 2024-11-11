@@ -125,7 +125,7 @@
     <script>
         $(document).ready(function() {
             $('#kota_tempat_lahir_id').select2({
-                width: '100%'
+                width: '100%',
                 placeholder: 'Search for a city...',
                 minimumInputLength: 1,
                 ajax: {

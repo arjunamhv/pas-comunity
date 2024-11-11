@@ -17,6 +17,16 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
+    public function user($id)
+    {
+        $user = User::select('id', 'name', 'foto', 'kota_id')
+            ->with(['kota:id,name'])
+            ->findOrFail($id);
+
+        return view('user', compact('user'));
+    }
+
+
     /**
      * Display a listing of the resource.
      */
