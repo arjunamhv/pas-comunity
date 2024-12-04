@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class CommunityController extends Controller
 {
@@ -12,29 +14,71 @@ class CommunityController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::query();
+        $me = Auth::user();
+        $searchResults = [];
 
-        // Pencarian berdasarkan nama
-        if ($request->has('search') && $request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        if ($request->has('filter') && $request->has('search') && $request->search) {
+            $filter = $request->filter;
+            $searchTerm = $request->search;
+
+            $query = User::query();
+
+            if ($filter === 'name') {
+                $query->where('name', 'like', '%' . $searchTerm . '%');
+            } elseif ($filter === 'provinsi') {
+                $query->whereHas('provinsi', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            } elseif ($filter === 'kota') {
+                $query->whereHas('kota', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            } elseif ($filter === 'kecamatan') {
+                $query->whereHas('kecamatan', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            } elseif ($filter === 'kelurahan') {
+                $query->whereHas('kelurahan', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            }
+
+            $searchResults = $query->get();
         }
 
-        // Menampilkan anggota terbaru yang bergabung
-        $newMembers = User::latest()->take(5)->get(); // 5 anggota terbaru
+        $newMembers = [];
+        $newMembers = User::where('created_at', '>=', Carbon::now()->subWeek())
+            ->latest()
+            ->take(5)
+            ->get();
 
-        // Mengambil data anggota berdasarkan lokasi jika diperlukan
-        // Misalnya, menggunakan lat dan long untuk mencari anggota terdekat
-        if ($request->has('nearby') && $request->nearby) {
-            // Proses mencari anggota berdasarkan jarak
-            // Gunakan package seperti "geotools" atau kalkulasi manual berdasarkan lat long
-            $nearbyMembers = User::where('location', 'near', $request->location)->get();
-        } else {
-            $nearbyMembers = [];
+        $nearbyMembers = [];
+
+        if ($request->has('kecamatan_id') && $request->kecamatan_id) {
+            $nearbyMembers = User::where('kecamatan_id', $request->kecamatan_id)
+                ->where('id', '!=', $me->id)
+                ->inRandomOrder()
+                ->take(5)
+                ->get();
+
+            if ($nearbyMembers->isEmpty() && $request->has('kota_id')) {
+                $nearbyMembers = User::where('kota_id', $request->kota_id)
+                    ->where('id', '!=', $me->id)
+                    ->inRandomOrder()
+                    ->take(5)
+                    ->get();
+            }
+
+            if ($nearbyMembers->isEmpty() && $request->has('provinsi_id')) {
+                $nearbyMembers = User::where('provinsi_id', $request->provinsi_id)
+                    ->where('id', '!=', $me->id)
+                    ->inRandomOrder()
+                    ->take(5)
+                    ->get();
+            }
         }
 
-        $members = $query->get();
-
-        return view('community', compact('members', 'newMembers', 'nearbyMembers'));
+        return view('community', compact('searchResults', 'newMembers', 'nearbyMembers'));
     }
 
     /**
