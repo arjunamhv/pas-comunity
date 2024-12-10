@@ -19,4 +19,4 @@ RUN composer install --no-dev --optimize-autoloader && \
 
 RUN npm install && npm run build
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+ENTRYPOINT ["php", "/app/artisan", "octane:frankenphp"]
