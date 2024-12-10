@@ -9,6 +9,7 @@
         "azishapidin/indoregion": "^3.0",
         "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^11.9",
+        "laravel/octane": "^2.6",
         "laravel/tinker": "^2.9",
         "simplesoftwareio/simple-qrcode": "^4.2"
     },
