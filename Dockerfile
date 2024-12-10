@@ -1,4 +1,8 @@
-FROM dunglas/frankenphp
+ARG PHP_VERSION=8.3
+
+ARG FRANKENPHP_VERSION=latest
+
+FROM dunglas/frankenphp:${FRANKENPHP_VERSION}-php${PHP_VERSION}-alpine
 
 RUN install-php-extensions pcntl
 
@@ -19,4 +23,4 @@ RUN composer install --no-dev --optimize-autoloader && \
 
 RUN npm install && npm run build
 
-ENTRYPOINT ["php", "/app/artisan", "octane:frankenphp"]
+ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
