@@ -41,4 +41,4 @@ jobs:
 
       - name: Execute SSH command
         run: |
-          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "ls"
+          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "cd pas-comunity/ && docker compose down --rmi all && docker compose build"
