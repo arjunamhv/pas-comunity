@@ -47,21 +47,21 @@ jobs:
               docker system prune -af && \
               docker-compose up -d
           "
-      - name: Run database migrations
-        run: |
-          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
-              cd pas-comunity/ && \
-              docker-compose logs && \
-              docker exec pas-comunity_web_1 php artisan migrate --seed && \
-              docker exec pas-comunity_web_1 php artisan key:generate
-          "
+      # - name: Run database migrations
+      #   run: |
+      #     ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
+      #         cd pas-comunity/ && \
+      #         docker-compose logs && \
+      #         docker exec pas-comunity_web_1 php artisan migrate --seed && \
+      #         docker exec pas-comunity_web_1 php artisan key:generate
+      #     "
 
-      - name: Update APP_ENV to production on server
-        run: |
-          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
-            docker exec pas-comunity_web_1 bash -c \"
-              sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env
-            \"
-          "
+      # - name: Update APP_ENV to production on server
+      #   run: |
+      #     ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
+      #       docker exec pas-comunity_web_1 bash -c \"
+      #         sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env
+      #       \"
+      #     "
 
 
