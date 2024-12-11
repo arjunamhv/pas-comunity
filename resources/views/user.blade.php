@@ -17,7 +17,7 @@
         </div>
         <div class="p-6">
             <div class="flex justify-center mb-6 mt-4">
-                <img src="{{ asset('storage/' . $user->foto) }}" alt="User Photo"
+                <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}" alt="User Photo"
                     class="w-32 h-32 rounded-full shadow-lg border-4 border-red-500 object-cover">
             </div>
             <h2 class="text-center text-2xl font-semibold text-gray-900 mt-4">{{ $user->name }}</h2>

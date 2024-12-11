@@ -52,7 +52,7 @@
                                 @foreach ($searchResults as $agus)
                                     <tr class="hover:bg-gray-100 border-b even:bg-gray-50">
                                         <td class="px-4 py-2 text-center">
-                                            <img src="{{ asset('storage/' . $agus->foto) }}" alt="User Photo"
+                                            <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}" alt="User Photo"
                                                 class="w-16 h-16 rounded-full shadow-md border-2 border-gray-300 object-cover">
                                         </td>
                                         <td class="px-4 py-2 text-center">{{ $agus->name }}</td>
@@ -99,7 +99,7 @@
                                 @foreach ($nearbyMembers as $agus)
                                     <tr class="hover:bg-gray-100 border-b even:bg-gray-50">
                                         <td class="px-4 py-2 text-center">
-                                            <img src="{{ asset('storage/' . $agus->foto) }}" alt="User Photo"
+                                            <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}" alt="User Photo"
                                                 class="w-16 h-16 rounded-full shadow-md border-2 border-gray-300 object-cover">
                                         </td>
                                         <td class="px-4 py-2 text-center">{{ $agus->name }}</td>
@@ -146,7 +146,7 @@
                                 @foreach ($newMembers as $agus)
                                     <tr class="hover:bg-gray-100 border-b even:bg-gray-50">
                                         <td class="px-4 py-2 text-center">
-                                            <img src="{{ asset('storage/' . $agus->foto) }}" alt="User Photo"
+                                            <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}" alt="User Photo"
                                                 class="w-16 h-16 rounded-full shadow-md border-2 border-gray-300 object-cover">
                                         </td>
                                         <td class="px-4 py-2 text-center">{{ $agus->name }}</td>

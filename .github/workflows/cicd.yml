@@ -43,8 +43,9 @@ jobs:
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
               cd pas-comunity/ && \
-              docker-compose down && \
-              docker system prune -af && \
+              docker-compose stop pas-comunity_web_1 && \
+              docker-compose rm pas-comunity_web_1 && \
+              docker rmi arjunamhv/pas-comunity:latest && \
               docker-compose up -d
           "
 
@@ -59,6 +60,7 @@ jobs:
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
               docker exec pas-comunity_web_1 php artisan migrate --seed && \
+              docker exec pas-comunity_web_1 php artisan storage:link && \
               docker exec pas-comunity_web_1 php artisan config:clear && \
               docker exec pas-comunity_web_1 php artisan cache:clear
           "
