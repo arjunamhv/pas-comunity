@@ -58,7 +58,7 @@ jobs:
       - name: Run database migrations
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
-              docker exec pas-comunity_web_1 php artisan migrate --seed && \
+              docker exec pas-comunity_web_1 php artisan migrate && \
               docker exec pas-comunity_web_1 php artisan storage:link && \
               docker exec pas-comunity_web_1 php artisan config:clear && \
               docker exec pas-comunity_web_1 php artisan cache:clear
