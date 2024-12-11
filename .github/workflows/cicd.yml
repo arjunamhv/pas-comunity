@@ -43,8 +43,8 @@ jobs:
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
               cd pas-comunity/ && \
-              docker-compose stop pas-comunity_web_1 && \
-              docker-compose rm pas-comunity_web_1 && \
+              docker container stop pas-comunity_web_1 && \
+              docker container rm pas-comunity_web_1 && \
               docker rmi arjunamhv/pas-comunity:latest && \
               docker-compose up -d
           "
