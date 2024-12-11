@@ -47,10 +47,7 @@ jobs:
               docker system prune -af && \
               docker-compose up -d 
           "
-      - name: Wait before running migrations
-        run: sleep 120
-
       - name: Run database migrations
         run: |
-          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "docker-compose logs && docker-compose exec app php artisan migrate --seed"
+          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "docker-compose logs && docker exec pas-comunity_web_1 php artisan migrate --seed"
 
