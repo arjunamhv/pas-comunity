@@ -21,6 +21,7 @@ RUN composer install --no-dev --optimize-autoloader && \
     php artisan config:cache && \
     php artisan route:cache
 
+# tailwind
 RUN npm install && npm run build
 
 RUN cp .env.example .env
