@@ -41,4 +41,16 @@ jobs:
 
       - name: Execute SSH command
         run: |
-          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "cd pas-comunity/ && docker-compose down && docker system prune -af && docker-compose up"
+          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "
+              cd pas-comunity/ && \
+              docker-compose down && \
+              docker system prune -af && \
+              docker-compose up -d 
+          "
+      - name: Wait before running migrations
+        run: sleep 120
+
+      - name: Run database migrations
+        run: |
+          ssh -i key.pem -o StrictHostKeyChecking=no root@159.89.203.89 "docker-compose logs && docker-compose exec app php artisan migrate --seed"
+
