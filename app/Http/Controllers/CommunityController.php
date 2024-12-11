@@ -50,6 +50,7 @@ class CommunityController extends Controller
         $newMembers = User::where('created_at', '>=', Carbon::now()->subWeek())
             ->latest()
             ->take(5)
+            ->whereNot('id', $me->id)
             ->get();
 
         $nearbyMembers = [];
