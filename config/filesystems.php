@@ -51,7 +51,7 @@ return [
             'secret' => env('MINIO_SECRET_KEY', 'eIEGL2yxRgR5QqizVWgHTYjKAyzrqVKwOW8ZOsy9'),
             'region' => env('MINIO_REGION', 'ap-southeast-1'),
             'bucket' => env('MINIO_BUCKET', 'pas-comunity'),
-            'endpoint' => env('MINIO_CONTAINER_ENDPOINT', 'http://159.89.203.89:9000'),
+            'endpoint' => env('MINIO_ENDPOINT', 'http://159.89.203.89:9000'),
             'use_path_style_endpoint' => env(true),
         ],
 
