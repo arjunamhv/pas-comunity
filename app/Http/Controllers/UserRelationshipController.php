@@ -53,7 +53,12 @@ class UserRelationshipController extends Controller
      */
     public function create()
     {
-        //
+        $relationshipTypes = RelationshipType::all();
+
+        return response()->json([
+            'success' => true,
+            'types' => $relationshipTypes
+        ]);
     }
 
     /**
@@ -103,11 +108,7 @@ class UserRelationshipController extends Controller
      */
     public function show($id)
     {
-        $relationshipTypes = RelationshipType::all();
-        $user = User::select('id', 'name', 'foto', 'kota_id')
-            ->with(['kota:id,name'])
-            ->findOrFail($id);
-        return view('user', compact('relationshipTypes', 'user'));
+        //
     }
 
     /**
