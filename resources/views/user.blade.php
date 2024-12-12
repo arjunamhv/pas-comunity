@@ -53,7 +53,10 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.message && data.message === 'Unauthenticated.') {
+                        // Redirect to login page if unauthenticated
+                        window.location.href = '{{ route('login') }}'; // Ganti dengan route login Anda
+                    } else if (data.success) {
                         Swal.fire({
                             title: 'Select Relationship Type',
                             html: generateRelationshipTypeForm(data.types),
@@ -72,6 +75,7 @@
                     Swal.fire('Error', 'An unexpected error occurred.', 'error');
                 });
         }
+
 
         function generateRelationshipTypeForm(types) {
             let options = types.map(type => `<option value="${type.id}">${type.name}</option>`).join('');
