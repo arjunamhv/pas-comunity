@@ -33,7 +33,7 @@
 
 <!-- Download Button -->
 <button id="downloadButton" onclick="downloadIdCard()"
-    style="margin-top: 16px; padding: 8px 16px; background-color: #2D3748; border: none; border-radius: 4px; font-size: 10px; font-weight: 600; color: #FFF; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background-color 0.15s ease-in-out;"
+    style="width: 100%; margin-top: 16px; padding: 8px 16px; background-color: #2D3748; border: none; border-radius: 4px; font-size: 10px; font-weight: 600; color: #FFF; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background-color 0.15s ease-in-out;"
     onmouseover="this.style.backgroundColor='#4A5568'" onmouseout="this.style.backgroundColor='#2D3748'">
     Download ID Card
 </button>
