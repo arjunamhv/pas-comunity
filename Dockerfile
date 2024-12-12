@@ -30,4 +30,4 @@ RUN php artisan key:generate
 
 EXPOSE 443
 # ENTRYPOINT ["php", "/app/artisan", "octane:frankenphp"]
-CMD ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=443", "--https=true", "--ssl-cert=/etc/ssl/certs/local.crt", "--ssl-key=/etc/ssl/private/local.key"]
+CMD ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=443", "--https", "--ssl-cert=/etc/ssl/certs/local.crt", "--ssl-key=/etc/ssl/private/local.key"]
