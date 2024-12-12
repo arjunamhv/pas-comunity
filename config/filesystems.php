@@ -47,8 +47,8 @@ return [
 
         'minio' => [
             'driver' => 's3',
-            'key' => env('MINIO_ACCESS_KEY'),
-            'secret' => env('MINIO_SECRET_KEY'),
+            'key' => env('MINIO_ACCESS_KEY', 'HTiezAYSi4SNaVVG1Kh3'),
+            'secret' => env('MINIO_SECRET_KEY', 'eIEGL2yxRgR5QqizVWgHTYjKAyzrqVKwOW8ZOsy9'),
             'region' => env('MINIO_REGION', 'ap-southeast-1'),
             'bucket' => env('MINIO_BUCKET', 'pas-comunity'),
             'endpoint' => env('MINIO_ENDPOINT', 'http://159.89.203.89:9000'),
