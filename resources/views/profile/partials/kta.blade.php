@@ -6,7 +6,7 @@
         <!-- Left Section (Photo) -->
         <div class="flex flex-col items-center justify-center" style="width: 96px;">
             <div style="width: 80px; height: 120px; overflow: hidden; border-radius: 8px;">
-                <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}" alt="User Photo" id="photo"
+                <img src="{{ $user->foto ? env('MINIO_ENDPOINT') . '/pas-comunity/' . $user->foto : asset('img/id_card_foto.png') }}" alt="User Photo" id="photo"
                     style="width: 80px; height: 120px; object-fit: cover;">
             </div>
         </div>

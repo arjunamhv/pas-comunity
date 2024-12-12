@@ -6,7 +6,7 @@
             <div class="w-[70%]">
                 <label class="font-semibold text-gray-700">Image:</label>
                 @if ($event->image)
-                    <img src="{{ asset('storage/' . $event->image) }}" alt="Event Image"
+                    <img src="{{ env('MINIO_ENDPOINT') . '/pas-comunity/' . $event->image }}" alt="Event Image"
                         class="w-full h-64 object-cover rounded-md mt-2">
                 @else
                     <p class="text-gray-400">No Image</p>

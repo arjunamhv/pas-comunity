@@ -102,7 +102,7 @@ class UserController extends Controller
 
                 if ($res->getStatusCode() === 200) {
                     $filename = 'foto-id-card/' . Str::uuid() . '.png';
-                    Storage::disk('public')->put($filename, $res->getBody());
+                    Storage::disk('minio')->put($filename, $res->getBody());
                     $user->foto = $filename;
                 } else {
                     return Redirect::route('users.create')->withErrors('Failed to remove background from the image.');
@@ -184,7 +184,7 @@ class UserController extends Controller
         // Handle foto upload and background removal
         if ($request->hasFile('foto')) {
             if ($user->foto) {
-                Storage::disk('public')->delete($user->foto);
+                Storage::disk('minio')->delete($user->foto);
             }
             $filePath = $request->file('foto')->getRealPath();
             $apiKey = 'FXZzcfLdbMjhoLMnCQ7xEHth';
@@ -209,7 +209,7 @@ class UserController extends Controller
 
                 if ($res->getStatusCode() === 200) {
                     $filename = 'foto-id-card/' . Str::uuid() . '.png';
-                    Storage::disk('public')->put($filename, $res->getBody());
+                    Storage::disk('minio')->put($filename, $res->getBody());
                     $user->foto = $filename;
                 } else {
                     return Redirect::route('users.edit')->withErrors('Failed to remove background from the image.');
@@ -310,7 +310,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if ($user->image) {
-            Storage::disk('public')->delete($user->image);
+            Storage::disk('minio')->delete($user->image);
         }
         $user->delete();
 

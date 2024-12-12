@@ -17,7 +17,7 @@
                 <!-- Display News Image -->
                 <div class="mt-4">
                     @if ($news->image)
-                        <img src="{{ asset('storage/' . $news->image) }}" alt="News Image"
+                        <img src="{{ env('MINIO_ENDPOINT') . '/pas-comunity/' . $news->image }}" alt="News Image"
                              class="w-full rounded-md">
                     @else
                         <span class="text-gray-400">No Image Available</span>

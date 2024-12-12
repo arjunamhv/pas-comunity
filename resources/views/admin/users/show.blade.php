@@ -6,7 +6,7 @@
         <!-- Photo -->
         @if ($user->foto)
             <div class="mb-4">
-                <img src="{{ asset('storage/' . $user->foto) }}" alt="User Photo" class="w-32 h-32 rounded-full">
+                <img src="{{ env('MINIO_ENDPOINT') . '/pas-comunity/' . $user->foto }}" alt="User Photo" class="w-32 h-32 rounded-full">
             </div>
         @endif
 

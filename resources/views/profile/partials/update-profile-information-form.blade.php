@@ -22,7 +22,7 @@
             <!-- Image Preview -->
             <div class="flex-shrink-0">
                 <img id="preview-image"
-                    src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('img/id_card_foto.png') }}"
+                    src="{{ $user->foto ? env('MINIO_ENDPOINT') . '/pas-comunity/' . $user->foto : asset('img/id_card_foto.png') }}"
                     class="w-32 h-48 object-cover border rounded-md" alt="Photo Preview">
             </div>
 

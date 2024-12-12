@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'minio'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,16 +45,14 @@ return [
             'throw' => false,
         ],
 
-        's3' => [
+        'minio' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
+            'key' => env('MINIO_ACCESS_KEY'),
+            'secret' => env('MINIO_SECRET_KEY'),
+            'region' => env('MINIO_REGION', 'ap-southeast-1'),
+            'bucket' => env('MINIO_BUCKET', 'pas-comunity'),
+            'endpoint' => env('MINIO_ENDPOINT', 'http://159.89.203.89:9000'),
+            'use_path_style_endpoint' => env(true),
         ],
 
     ],

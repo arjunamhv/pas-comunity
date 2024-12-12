@@ -75,7 +75,7 @@ class EventController extends Controller
 
         if ($request->hasFile('image')) {
             $filename = 'event/' . (string) Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
-            Storage::disk('public')->put($filename, file_get_contents($request->file('image')));
+            Storage::disk('minio')->put($filename, file_get_contents($request->file('image')));
             $event->image = $filename;
         }
 
@@ -115,9 +115,9 @@ class EventController extends Controller
         $event->longitude = $request->longitude;
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($event->image);
+            Storage::disk('minio')->delete($event->image);
             $filename = 'event/' . (string) Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
-            Storage::disk('public')->put($filename, file_get_contents($request->file('image')));
+            Storage::disk('minio')->put($filename, file_get_contents($request->file('image')));
             $event->image = $filename;
         }
 
@@ -131,7 +131,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        Storage::disk('public')->delete($event->image);
+        Storage::disk('minio')->delete($event->image);
         $event->delete();
         return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
     }

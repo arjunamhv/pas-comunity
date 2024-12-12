@@ -31,7 +31,7 @@
                                 <td class="py-3 px-6 w-6/12">{{ Str::limit(strip_tags($item->content), 50) }}</td>
                                 <td class="py-3 px-6 w-2/12">
                                     @if ($item->image)
-                                        <img src="{{ asset('storage/' . $item->image) }}" alt="News Image"
+                                        <img src="{{ env('MINIO_ENDPOINT') . '/pas-comunity/' . $item->image }}" alt="News Image"
                                             class="w-24 h-24 object-cover rounded-md">
                                     @else
                                         <span class="text-gray-400">No Image</span>

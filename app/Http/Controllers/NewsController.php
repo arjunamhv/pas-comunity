@@ -69,7 +69,7 @@ class NewsController extends Controller
 
         if ($request->hasFile('image')) {
             $filename = 'news/' . (string) Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
-            Storage::disk('public')->put($filename, file_get_contents($request->file('image')));
+            Storage::disk('minio')->put($filename, file_get_contents($request->file('image')));
             $news->image = $filename;
         }
 
@@ -104,9 +104,9 @@ class NewsController extends Controller
         $news->content = $request->content;
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($news->image);
+            Storage::disk('minio')->delete($news->image);
             $filename = 'news/' . (string) Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
-            Storage::disk('public')->put($filename, file_get_contents($request->file('image')));
+            Storage::disk('minio')->put($filename, file_get_contents($request->file('image')));
             $news->image = $filename;
         }
 
@@ -120,7 +120,7 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        Storage::disk('public')->delete($news->image);
+        Storage::disk('minio')->delete($news->image);
         $news->delete();
 
         return redirect()->route('news.index')->with('success', 'News deleted successfully.');

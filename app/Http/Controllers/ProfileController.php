@@ -48,12 +48,10 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('foto')) {
-            // Delete old photo if it exists
             if ($user->foto) {
-                Storage::disk('public')->delete($user->foto);
+                Storage::disk('minio')->delete($user->foto);
             }
 
-            // Call Remove.bg API to remove background
             $filePath = $request->file('foto')->getRealPath();
             $apiKey = 'FXZzcfLdbMjhoLMnCQ7xEHth';
 
@@ -77,7 +75,7 @@ class ProfileController extends Controller
 
                 if ($res->getStatusCode() === 200) {
                     $filename = 'foto-id-card/' . Str::uuid() . '.png';
-                    Storage::disk('public')->put($filename, $res->getBody());
+                    Storage::disk('minio')->put($filename, $res->getBody(), 'public');
 
                     $user->foto = $filename;
                 } else {

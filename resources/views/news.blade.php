@@ -13,7 +13,7 @@
                     @foreach ($news->take(10) as $item)
                         <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="News Image" class="w-full h-48 object-cover rounded-md">
+                                <img src="{{ env('MINIO_ENDPOINT') . '/pas-comunity/' . $item->image }}" alt="News Image" class="w-full h-48 object-cover rounded-md">
                             </div>
                             <a href="{{ route('news.detail', $item->id) }}" class="text-xl font-semibold text-blue-600 hover:underline">
                                 {{ $item->title }}
@@ -38,14 +38,12 @@
         </div>
     </div>
 
-    <!-- JavaScript for Load More Functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let skip = 10; // Start loading from the 11th item
+            let skip = 10;
             const loadMoreBtn = document.getElementById('load-more-btn');
 
             loadMoreBtn.addEventListener('click', () => {
-                // Show loading state
                 loadMoreBtn.innerText = 'Loading...';
                 loadMoreBtn.disabled = true;
 
@@ -54,12 +52,11 @@
                     .then(data => {
                         const newsContainer = document.getElementById('news-container');
                         data.news.forEach(item => {
-                            // Create a card for each new item
                             const newsCard = document.createElement('div');
                             newsCard.classList.add('bg-gray-100', 'p-6', 'rounded-lg', 'shadow-md', 'hover:shadow-lg', 'transition-shadow');
                             newsCard.innerHTML = `
                                 <div class="mb-4">
-                                    <img src="{{ asset('storage/') }}/${item.image}" alt="News Image" class="w-full h-48 object-cover rounded-md">
+                                    <img src="{{ env('MINIO_ENDPOINT') . '/pas-comunity/' }}/${item.image}" alt="News Image" class="w-full h-48 object-cover rounded-md">
                                 </div>
                                 <a href="{{ url('news') }}/${item.id}" class="text-xl font-semibold text-blue-600 hover:underline">
                                     ${item.title}
